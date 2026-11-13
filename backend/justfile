@@ -23,7 +23,7 @@ check-types:
     @echo "🔍 Running basedpyright type checking..."
     uv run basedpyright .
     @echo "✅ Type checking complete"
-    [group('check')]
+[group('check')]
 check-all: check-format check-lint check-types
     @echo ""
     @echo "✅ All checks passed!"
