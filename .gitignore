@@ -1,0 +1,21 @@
+# Editors
+.vscode/
+.idea/
+
+# Python
+pycache/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
