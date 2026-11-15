@@ -4,7 +4,6 @@ from collections.abc import Iterator
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from httpx import Response
 from pydantic import SecretStr
 
 from app.adapters.inbound.api.deps import get_registry, get_stamper
@@ -46,7 +45,7 @@ def real_client(settings: Settings) -> Iterator[TestClient]:
         yield test_client
 
 
-def register(client: TestClient, pdf: bytes = SAMPLE_PDF, **form: str) -> Response:
+def register(client: TestClient, pdf: bytes = SAMPLE_PDF, **form: str):
     return client.post(
         "/api/v1/documents",
         headers=HEADERS,
@@ -55,7 +54,7 @@ def register(client: TestClient, pdf: bytes = SAMPLE_PDF, **form: str) -> Respon
     )
 
 
-def verify(client: TestClient, pdf: bytes) -> Response:
+def verify(client: TestClient, pdf: bytes):
     return client.post(
         "/api/v1/verifications", files={"file": ("spec.pdf", pdf, "application/pdf")}
     )
