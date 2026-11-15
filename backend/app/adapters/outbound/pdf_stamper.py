@@ -67,7 +67,7 @@ class ReportlabPdfStamper:
             reader = PdfReader(BytesIO(pdf))
             if reader.is_encrypted:
                 raise InvalidDocumentFile("Encrypted PDF files are not supported")
-            len(reader.pages)  # noqa: B018 - forces parsing of the page tree
+            len(reader.pages)
         except (PyPdfError, ValueError, KeyError, TypeError) as exc:
             raise InvalidDocumentFile("File is not a readable PDF document") from exc
         return reader
