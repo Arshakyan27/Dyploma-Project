@@ -1,11 +1,11 @@
 set dotenv-load := true
-
+set windows-shell := ["powershell.exe", "-NoLogo", "-NoProfile", "-Command"]
 default:
     @just --list
 
 runserver port:
-    @echo "Starting FastAPI server on port {{port}}..."
-    uv run fastapi dev app/main.py --reload --port {{port}}
+  @echo "Starting FastAPI server on port {{port}}..."
+  uv run fastapi dev app/main.py --reload --port {{port}}
 
 [group('check')]
 check-format:
@@ -18,12 +18,27 @@ check-lint:
     @echo "🔍 Running ruff check with auto-fix..."
     uv run ruff check --fix .
     @echo "✅ Linting complete"
+
 [group('check')]
 check-types:
     @echo "🔍 Running basedpyright type checking..."
     uv run basedpyright .
     @echo "✅ Type checking complete"
+
+[group('ci')]
+ci-format:
+    uv run ruff format --check .
+
+[group('ci')]
+ci-lint:
+    uv run ruff check .
+
 [group('check')]
 check-all: check-format check-lint check-types
     @echo ""
     @echo "✅ All checks passed!"
+
+[group('check')]
+test *args:
+    @echo "🧪 Running pytest..."
+    uv run pytest {{args}}
